@@ -7,7 +7,7 @@
 import http from 'http'
 // dentro do req consigo obter todas as informações que estão chegando da requisição
 const server = http.createServer((requisicao, response) => {
-    return response.end('Hello world')
+    return response.end('Hello ig')
 })
 
 
