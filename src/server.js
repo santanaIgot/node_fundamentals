@@ -5,9 +5,9 @@
 // const http = require('http')
 
 import http from 'http'
-
-const server = http.createServer((req, response) => {
-
+// dentro do req consigo obter todas as informações que estão chegando da requisição
+const server = http.createServer((requisicao, response) => {
+    return response.end('Hello world')
 })
 
 
