@@ -11,6 +11,13 @@ const server = http.createServer((requisicao, response) => {
 
     console.log(method, url);
     
+    if(method == 'GET' && url == '/users'){
+        return response.end('listagem de usuário')
+    }
+
+    if(method == 'POST' && url == '/users'){
+        return response.end('Cadastro de usuário')
+    }
 
 
     return response.end('Hello ig')
