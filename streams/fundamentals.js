@@ -19,7 +19,7 @@
 // por exemplo req e res são uma stream no final das contas
 // quando fazemos uma req http no node, podemos manter essa req aberta e enviar dados aos poucos
 
-import { Readable } from "node:stream";
+import { Readable, Writable, Transform } from "node:stream";
 
 // essa classe contem um método obrigatorio que é o método read.
 class OneToHundredStream extends Readable {
@@ -39,7 +39,21 @@ class OneToHundredStream extends Readable {
   }
 }
 
-new OneToHundredStream().pipe(process.stdout);
+class InverseNumberStream extends Transform{
+    _transform(chunk, encoding, callback){
+        const transformed = Number(chunk.toString()) * -1 
+        callback(null, Buffer.from(transformed.toString()))
+    }
+}
+class MultiplyByTenStream extends Writable {
+    _write(chunk, encoding, callback){
+        console.log(Number(chunk.toString() * 10 ))
+        callback()
+    }
+}
 
+new OneToHundredStream()
+    .pipe(new InverseNumberStream)
+    .pipe(new MultiplyByTenStream);
 
 
