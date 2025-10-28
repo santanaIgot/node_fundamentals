@@ -28,7 +28,6 @@ const server = http.createServer((requisicao, response) => {
             nome:"Igor",
             idade: 22
         })
-        
         return response.end('Cadastro de usuário')
     }
 
