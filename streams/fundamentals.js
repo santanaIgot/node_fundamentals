@@ -21,7 +21,8 @@
 
 import { Readable, Writable, Transform } from "node:stream";
 
-
+process.
+    stdin.pipe(process.stdout) /// isso é tudo o que o usuário digita no terminal, isso é uma stream readable(leitura) e dentro dele passamos o process stdout stream de saída
 
 class InverseNumberStream extends Transform{
     _transform(chunk, encoding, callback){

@@ -9,7 +9,7 @@
 
 import http from 'http'
 // dentro do req consigo obter todas as informações que estão chegando da requisição
-
+// req e res também são streams
 // memória onde serão armazenado os dados 
 const users = [];
 
@@ -38,3 +38,6 @@ const server = http.createServer((requisicao, response) => {
 
 server.listen(3333)
 /// nosso servidor http vai escutar nesta porta localhost:3333
+
+
+// process.stdin : é tudo o que o usuário digita no terminal 
