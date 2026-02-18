@@ -12,10 +12,24 @@ import {Transform} from "node:stream"
 
     //req => ReadableStream
     //res => WritableStream
-const server = http.createServer((req, res) => {
-    return req
-    .pipe(new InverseNumberStream())
-    .pipe(res);
+const server = http.createServer(async (req, res) => {
+    const buffers = []
+
+    // aguarda cada pedaço da stream a ser retornado 
+    // essa sintaxe permite percorrermos toda a stream e enquanto não percorrer ela toda não é exibido nada
+    // com esta sintaxe nos conseguimos ler todos os dados de uma stream antes de processar ela
+    for await(const chunk of req){
+        buffers.push(chunk)
+    }
+
+    const fullBodyStream = Buffer.concat(buffers).toString()
+
+    console.log(fullBodyStream);
+    
+    return res.end(fullBodyStream)
+    // return req
+    // .pipe(new InverseNumberStream())
+    // .pipe(res);
 })
 
 server.listen(3334)

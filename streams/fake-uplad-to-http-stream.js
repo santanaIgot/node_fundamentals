@@ -10,7 +10,7 @@ class OneToHundredStream extends Readable {
     const i = this.index++;
 
     setTimeout(() => {
-      if (i > 100) {
+      if (i > 5) {
         this.push(null); // quando for 100 ele setará null caso contrario irá processar os dados 
       } else {
         const buf = Buffer.from(String(i)); // converte o i em buffer 
@@ -26,4 +26,8 @@ await fetch('http://localhost:3334', {
     body: new OneToHundredStream(),
     // Node.js fetch exige duplex ao enviar um stream como body
     duplex: 'half',
+}).then(response => {
+  response.text.then(data => {
+    console.log(data);
+  })
 })
