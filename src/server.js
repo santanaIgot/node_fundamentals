@@ -13,6 +13,9 @@ import http from 'http'
 // memória onde serão armazenado os dados 
 const users = [];
 
+///req e res são streams também
+// quando faço uma requisição http pro servidor eu posso manter essa requisição aberta e enviar dados pra ela aos poucos 
+// e quando vou devolver uma resposta pro servidor, eu posso devolver aos poucos 
 const server = http.createServer((requisicao, response) => {
     const {method, url} = requisicao;
 
