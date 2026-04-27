@@ -9,10 +9,13 @@
 
 import http from 'http'
 import { json } from './middlewares/json.js';
+import { Database } from './database.js';
 // dentro do req consigo obter todas as informações que estão chegando da requisição
 // req e res também são streams
 // memória onde serão armazenado os dados 
-const users = [];
+// const users = [];
+
+const database = new Database();
 
 ///req e res são streams também
 // quando faço uma requisição http pro servidor eu posso manter essa requisição aberta e enviar dados pra ela aos poucos 
@@ -48,18 +51,28 @@ const server = http.createServer(async (requisicao, response) => {
     //se a gente tentar pegar alguma propriedade desse texto por exemplo: body.name
     // vai dar erro pois nosso body esta vindo como texto entao temos que dar um JSON.parse nele  
     // com o json.parse transformamos esse texto em um JSON 
-    console.log(body);
+    // console.log(body);
     
     
     
     if(method == 'GET' && url == '/users'){
-        return response.setHeader('Content-Type', 'application/json').end(JSON.stringify(users))
+        const users = database.select('users')
+        return response
+        .setHeader('Content-Type', 'application/json').end(JSON.stringify(users))
     }
 
     if(method == 'POST' && url == '/users'){
         const {nome, email} = requisicao.body;
-        users.push({id: 1,nome, email})
-        return response.end('Cadastro de usuário')
+        // users.push({id: 1,nome, email})
+
+        const user = {
+            id: 1,
+            nome, 
+            email
+        }
+
+        database.insert('users', user)
+        return response.end('Usuário cadastrado')
     }
 
 
