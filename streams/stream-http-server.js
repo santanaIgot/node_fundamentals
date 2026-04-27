@@ -19,9 +19,9 @@ const server = http.createServer(async (req, res) => {
     // essa sintaxe permite percorrermos toda a stream e enquanto não percorrer ela toda não é exibido nada
     // com esta sintaxe nos conseguimos ler todos os dados de uma stream antes de processar ela
     for await(const chunk of req){
-        buffers.push(chunk)
+        buffers.push(chunk);
     }
-
+    // concat vai unir todos os chunks 
     const fullBodyStream = Buffer.concat(buffers).toString()
 
     console.log(fullBodyStream);
