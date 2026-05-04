@@ -2,7 +2,20 @@
 /// este modulo possue varias propriedades para construirmos aplicação com http 
 /// com http conseguimos criar rotas get | put | update | delete | post
 /// tambem utilizamos este padrão de importação ESModule onde as importações e exportações utilizam import e export
-// const http = require('http')
+//  const http = require('http')
+
+
+
+/// ---------------- três formas do front-end enviar requisições ---------------------
+//  Query parameters : são parametros que enviamos no proprio end da req http://localhost:3333/users?id=1 - é utilizado em aplicações stateful - serve para enviar informações que não são sensíveis | 
+// é utilizado para filtros, paginação, pra coisas que modificam as respostas mas não é uma obrigatoriedade 
+
+//  Route parameters : são parametros não nomeados que ficam na rota da aplicação, segue o exemplo abaixo
+// http://localhost:3333/users/1 - serve para identificação de recurso http  
+
+//  Request body : UTILIZADO PARA ENVIO DE INFORMAÇÕES DE UM FORMULÁRIO
+
+
 
 
 // aplicação statefull(sempre terá informações sendo armazenada em memória) e aplicação staless(salva informações em dispositivos externos como banco de dados ) 
