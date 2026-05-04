@@ -9,30 +9,31 @@
 
 import http from 'http'
 import { json } from './middlewares/json.js';
-import { Database } from './database.js';
+import { route } from './routes.js';
+
 // dentro do req consigo obter todas as informações que estão chegando da requisição
 // req e res também são streams
 // memória onde serão armazenado os dados 
 // const users = [];
 
-const database = new Database();
+// const database = new Database();
 
 ///req e res são streams também
 // quando faço uma requisição http pro servidor eu posso manter essa requisição aberta e enviar dados pra ela aos poucos 
 // e quando vou devolver uma resposta pro servidor, eu posso devolver aos poucos 
-const server = http.createServer(async (requisicao, response) => {
-    const {method, url} = requisicao;
+const server = http.createServer(async (req, res) => {
+    const {method, url} = req;
 
     console.log(method, url);
 
-    console.log(requisicao);
+    console.log(req);
 
     // const buffers = []
 
     // aguarda cada pedaço da stream a ser retornado 
     // essa sintaxe permite percorrermos toda a stream e enquanto não percorrer ela toda não é exibido nada
     // com esta sintaxe nos conseguimos ler todos os dados de uma stream antes de processar ela
-    // for await(const chunk of requisicao){
+    // for await(const chunk of req){
     //     buffers.push(chunk)
     // }
     
@@ -40,13 +41,13 @@ const server = http.createServer(async (requisicao, response) => {
     // const body = Buffer.concat(buffers).toString() - ***vindo como texto**** 
 
     // try {
-    //     requisicao.body = JSON.parse(Buffer.concat(buffers).toString())    
+    //     req.body = JSON.parse(Buffer.concat(buffers).toString())    
     // } catch {
-    //     requisicao.body = null 
+    //     req.body = null 
     // }
     
 
-    await json(requisicao, response)
+    await json(req, res)
 
     //se a gente tentar pegar alguma propriedade desse texto por exemplo: body.name
     // vai dar erro pois nosso body esta vindo como texto entao temos que dar um JSON.parse nele  
@@ -55,28 +56,40 @@ const server = http.createServer(async (requisicao, response) => {
     
     
     
-    if(method == 'GET' && url == '/users'){
-        const users = database.select('users')
-        return response
-        .setHeader('Content-Type', 'application/json').end(JSON.stringify(users))
+    // if(method == 'GET' && url == '/users'){
+        // const users = database.select('users')
+        // return res
+        // .setHeader('Content-Type', 'application/json').end(JSON.stringify(users))
+    // }
+
+    // if(method == 'POST' && url == '/users'){
+        // const {nome, email} = req.body;
+        // // users.push({id: 1,nome, email})
+
+        // const user = {
+        //     id: randomUUID(),
+        //     nome, 
+        //     email
+        // }
+
+        // database.insert('users', user)
+        // return res.end('Usuário cadastrado')
+    // }
+
+
+    const routes = route.find(route => {
+        return route.method == method && route.path == url
+    })
+
+    if(routes){
+        return routes.handler(req, res)
     }
 
-    if(method == 'POST' && url == '/users'){
-        const {nome, email} = requisicao.body;
-        // users.push({id: 1,nome, email})
-
-        const user = {
-            id: 1,
-            nome, 
-            email
-        }
-
-        database.insert('users', user)
-        return response.end('Usuário cadastrado')
-    }
+    console.log(routes);
+    
 
 
-    return response.end('Hello ig')
+    return res.end('Hello ig')
 })
 
 
