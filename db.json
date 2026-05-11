@@ -1,1 +1,19 @@
-{"users":[{"id":"ae717757-8968-41fe-b940-c8102c7ce008","nome":"Joelinton","email":"jsbbfvkbskbjskfj"},{"id":"88a488b6-2807-4837-b8ed-eb214218067d","nome":"Joelinton","email":"jsbbfvkbskbjskfj"},{"id":"d0d76c5f-97ef-408d-bf61-104ba23ad634","nome":"Joelinton","email":"jsbbfvkbskbjskfj"}]}
+{
+    "users": [
+        {
+            "id": "ae717757-8968-41fe-b940-c8102c7ce008",
+            "nome": "Joelinton",
+            "email": "jsbbfvkbskbjskfj"
+        },
+        {
+            "id": "88a488b6-2807-4837-b8ed-eb214218067d",
+            "nome": "Joelinton",
+            "email": "jsbbfvkbskbjskfj"
+        },
+        {
+            "id": "d0d76c5f-97ef-408d-bf61-104ba23ad634",
+            "nome": "Joelinton",
+            "email": "jsbbfvkbskbjskfj"
+        }
+    ]
+}

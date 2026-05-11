@@ -37,9 +37,9 @@ import { route } from './routes.js';
 const server = http.createServer(async (req, res) => {
     const {method, url} = req;
 
-    console.log(method, url);
+    // console.log(method, url);
 
-    console.log(req);
+    // console.log(req);
 
     // const buffers = []
 
@@ -91,14 +91,18 @@ const server = http.createServer(async (req, res) => {
 
 
     const routes = route.find(route => {
-        return route.method == method && route.path == url
+        // esse método test() é um método do regex que verifica se a url contém caracteres validos comparados ao do regex
+        return route.method == method && route.path.test(url)
     })
 
     if(routes){
+        const routeParams = req.url.match(route.path)
+        console.log("🚀 ~ routeParams:", routeParams.groups)
+
         return routes.handler(req, res)
     }
 
-    console.log(routes);
+    // console.log(routes);
     
 
 
