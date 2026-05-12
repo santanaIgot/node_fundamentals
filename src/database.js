@@ -32,6 +32,21 @@ export class Database {
     }
 
 
+
+    update(table, id, data){
+        console.log("🚀 ~ Database ~ delete ~ table:", table)
+        console.log("🚀 ~ Database ~ delete ~ id:", id)
+        const rowIndex = this.#database[table].findIndex(row => {
+            return row.id == id;
+        })
+
+        if(rowIndex > -1){
+            this.#database[table] = { id, ...data}
+            this.#persist()
+        }
+    }
+    
+
     delete(table, id){
         console.log("🚀 ~ Database ~ delete ~ table:", table)
         console.log("🚀 ~ Database ~ delete ~ id:", id)
@@ -44,4 +59,6 @@ export class Database {
             this.#persist()
         }
     }
+
+
 }
