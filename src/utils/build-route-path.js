@@ -13,7 +13,7 @@ export function buildRoutePath(path) {
     // console.log(pathWithParams);
     // console.log(Array.from(path.matchAll(routeParametersRegex)))
     
-
-    const newPathRegex = new RegExp(`^${pathWithParams}`)
+    // (?<query>)? - tudo se torna opcional depois disso 
+    const newPathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`)
     return newPathRegex;
 }

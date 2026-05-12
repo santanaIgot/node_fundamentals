@@ -97,11 +97,11 @@ const server = http.createServer(async (req, res) => {
 
     if(routes){
         const routeParams = req.url.match(routes.path)
-        console.log("🚀 ~ routeParams:", routeParams)
+
 
          req.params = { ...routeParams.groups }
          console.log("🚀 ~ routeParams.groups:", routeParams.groups)
-         console.log("🚀 ~ req.params:", req.params)
+
 
         return routes.handler(req, res)
     }
@@ -110,7 +110,7 @@ const server = http.createServer(async (req, res) => {
     
 
 
-    return res.end('Hello ig')
+    return res.end("Server init")
 })
 
 

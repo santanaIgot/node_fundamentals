@@ -3,6 +3,11 @@ import fs from "node:fs/promises"
 
 // randomUUID => gera id unicos 
 // para se trabalhar com arquivos fisicos no node usamos o fs do node 
+
+// Existem três formas de enviar informações para nossa api
+// Route Parameters
+// Request body
+// Query parameters
 export class Database {
 
     // este "#" é como se fosse um modificador de acesso de propriedades das classes no node e é um modificador de acesso privado
@@ -34,22 +39,18 @@ export class Database {
 
 
     update(table, id, data){
-        console.log("🚀 ~ Database ~ delete ~ table:", table)
-        console.log("🚀 ~ Database ~ delete ~ id:", id)
         const rowIndex = this.#database[table].findIndex(row => {
             return row.id == id;
         })
 
         if(rowIndex > -1){
-            this.#database[table] = { id, ...data}
+            this.#database[table][rowIndex] = { id, ...data}
             this.#persist()
         }
     }
     
 
     delete(table, id){
-        console.log("🚀 ~ Database ~ delete ~ table:", table)
-        console.log("🚀 ~ Database ~ delete ~ id:", id)
         const rowIndex = this.#database[table].findIndex(row => {
             return row.id == id;
         })

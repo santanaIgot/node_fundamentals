@@ -37,7 +37,6 @@ export const route = [
         handler: (req, res) => {
             const {id} = req.params;
             const { nome, email } = req.body
-            console.log("🚀 ~ id:", id)
 
             database.update('users', id, {
                 nome, 
