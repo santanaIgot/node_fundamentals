@@ -36,7 +36,6 @@ import { route } from './routes.js';
 // e quando vou devolver uma resposta pro servidor, eu posso devolver aos poucos 
 const server = http.createServer(async (req, res) => {
     const {method, url} = req;
-
     // console.log(method, url);
 
     // console.log(req);
@@ -92,12 +91,17 @@ const server = http.createServer(async (req, res) => {
 
     const routes = route.find(route => {
         // esse método test() é um método do regex que verifica se a url contém caracteres validos comparados ao do regex
+        // retorna true ou false caso a string que esta indo na url seja válida
         return route.method == method && route.path.test(url)
     })
 
     if(routes){
-        const routeParams = req.url.match(route.path)
-        console.log("🚀 ~ routeParams:", routeParams.groups)
+        const routeParams = req.url.match(routes.path)
+        console.log("🚀 ~ routeParams:", routeParams)
+
+         req.params = { ...routeParams.groups }
+         console.log("🚀 ~ routeParams.groups:", routeParams.groups)
+         console.log("🚀 ~ req.params:", req.params)
 
         return routes.handler(req, res)
     }

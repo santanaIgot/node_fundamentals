@@ -6,7 +6,9 @@ export function buildRoutePath(path) {
     // forma de encontrar textos
 
     const routeParametersRegex = /:([a-zA-Z]+)/g;
-    const pathWithParams = path.replaceAll(routeParametersRegex, '(?<id>[a-z0-9\-_]+)');
+    const pathWithParams = path.replaceAll(routeParametersRegex, '(?<$1>[a-z0-9\-_]+)');
+    
+
 
     // console.log(pathWithParams);
     // console.log(Array.from(path.matchAll(routeParametersRegex)))

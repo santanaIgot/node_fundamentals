@@ -12,6 +12,7 @@ export async function json(req, res) {
 
   try {
     req.body = JSON.parse(Buffer.concat(buffers).toString());
+    console.log("🚀 ~ json ~ req.body:", req.body)
   } catch {
     req.body = null;
   }
